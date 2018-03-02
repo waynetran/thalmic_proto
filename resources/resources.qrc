@@ -1,0 +1,8 @@
+<RCC>
+    <qresource prefix="/">
+        <file>images/thalmic-logo-white.svg</file>
+        <file>images/thalmic_logo_mark.svg</file>
+        <file>images/menu.svg</file>
+        <file>images/compass.svg</file>
+    </qresource>
+</RCC>

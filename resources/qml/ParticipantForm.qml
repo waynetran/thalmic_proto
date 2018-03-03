@@ -10,6 +10,10 @@ Item {
     signal next()
 
     function reset(){
+        nameInput.text = "User " + userSettings.numUsers();
+        ageGroupInput.currentIndex = 0;
+        genderInput.currentIndex = 0;
+        techInput.currentIndex = 0;
 
     }
 
@@ -19,7 +23,8 @@ Item {
         Label{
             Layout.fillWidth: true
             text: "New Participant"
-            font.pointSize: fontSize * 1.5
+            font.pointSize: fontSize * 2
+            color: fontColor
         }
 
         GridLayout {
@@ -36,7 +41,7 @@ Item {
                 text:"Name:"
                 font.pointSize: fontSize
                 Layout.alignment: Qt.AlignVCenter
-
+                color: fontColor
             }
 
             TextField{
@@ -52,6 +57,7 @@ Item {
                 text: "Age Group:"
                 font.pointSize: fontSize
                 Layout.alignment: Qt.AlignVCenter
+                color: fontColor
             }
 
             ComboBox{
@@ -68,6 +74,7 @@ Item {
                 text: "Gender:"
                 font.pointSize: fontSize
                 Layout.alignment: Qt.AlignVCenter
+                color: fontColor
             }
 
             ComboBox{
@@ -84,6 +91,7 @@ Item {
                 text: "Tech Ability:"
                 font.pointSize: fontSize
                 Layout.alignment: Qt.AlignVCenter
+                color: fontColor
             }
 
             ComboBox{

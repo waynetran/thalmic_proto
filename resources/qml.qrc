@@ -6,9 +6,11 @@
         <file>qml/TestMain.qml</file>
         <file>qml/ParticipantForm.qml</file>
         <file>qml/ReadySetGo.qml</file>
-        <file>qml/FourWayTest.qml</file>
         <file>js/utils.js</file>
-        <file>qml/FourWayNav.qml</file>
         <file>qml/ViewResults.qml</file>
+        <file>qml/VariantNav.qml</file>
+        <file>qml/VariantTest.qml</file>
+        <file>qml/ResultsRaw.qml</file>
+        <file>qml/ResultsSummary.qml</file>
     </qresource>
 </RCC>

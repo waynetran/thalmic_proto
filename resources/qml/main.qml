@@ -5,24 +5,19 @@ import QtQuick.Controls.Material 2.2
 import QtQuick.Layouts 1.3
 import QtQml 2.2
 import Qt.labs.settings 1.0
+import QtSensors 5.0
 
 ApplicationWindow {
     id: appWindow
     visible: true
-    height: 854
+    height: 800
     width: 480
 
+    property string fontColor : "#566573"
     property int fontSize : 14
     property int controlHeight: 80
     property int controlWidth: 220
-
     property var currentUser :({})
-
-    property var twowayTargets : ["Actions/Send/Stats/Pulse", "Actions/Send/Communication/Text",
-        "Actions/Settings/Modes/Do not disturb", "Actions/Settings/Modes/Sleep",
-        "Info/Calendar/View/Today", "Info/Calendar/View/Tomorrow",
-        "Info/Health/Cardiac/Pulse", "Info/Health/Energy/Calories"
-    ]
 
     function quitToMain(){
         stack.clear();
@@ -62,6 +57,11 @@ ApplicationWindow {
         function numUsers(){
             return userData.length
         }
+    }
+
+    TiltSensor {
+        id: tiltSensor
+        active: true
     }
 
     header: ToolBar {
@@ -170,14 +170,29 @@ ApplicationWindow {
                 id:mainPage
                 onNewTest: {
                     console.log("new test");
-                    stack.push(testPageComp);
+                    stack.push(newUserForm);
+                    stack.currentItem.reset();
                 }
 
                 onViewResult: {
                     console.log("view result");
                     stack.push(resultsPageComp);
-                    //resultsPageComp.setResults(userSettings.userData)
                     stack.currentItem.setResults(userSettings.userData);
+                }
+            }
+        }
+
+        Component{
+            id: newUserForm
+            ParticipantForm{
+                Layout.fillWidth: true
+                Layout.fillHeight: true
+                onCancelled: {
+                    quitToMain();
+                }
+                onNext: {
+                    stack.push(testPageComp);
+                    stack.currentItem.reset();
                 }
             }
         }

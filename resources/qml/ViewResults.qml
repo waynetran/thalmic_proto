@@ -6,41 +6,57 @@ import QtQuick.Layouts 1.3
 import QtQml 2.2
 import Qt.labs.settings 1.0
 
-Item {
+Page {
     id:itemRoot
-
+    property alias pageIndex: stack.currentIndex
     function setResults(userData){
-        var text = ""
-        for(var i=0;i<userData.length;i++){
-            var user = userData[i];
-            console.log("result: " + JSON.stringify(user));
-            text += "\n " + JSON.stringify(user);
-        }
-
-        rawDataLabel.text = JSON.stringify(userData,null, 2);
+        summaryPage.setResults(userData);
+        rawPage.setResults(userData);
     }
 
-    ColumnLayout{
+    footer:ToolBar {
+        height: controlHeight
+        RowLayout{
+            anchors.fill: parent
+
+            ToolButton{
+                id:summaryButton
+                text: "Summary"
+                font: Qt.font({pointSize:fontSize});
+                Layout.fillHeight: true
+                Layout.fillWidth: true
+                onClicked: {
+                    pageIndex = 0;
+                }
+                checkable: true
+                checked: pageIndex == 0;
+                autoExclusive: true
+            }
+            ToolButton{
+                id:rawButton
+                text: "Raw Data"
+                font: Qt.font({pointSize:fontSize});
+                Layout.fillHeight: true
+                Layout.fillWidth: true
+                onClicked: {
+                    pageIndex = 1;
+                }
+                checkable: true
+                checked: pageIndex == 1;
+                autoExclusive: true
+            }
+        }
+    }
+
+    StackLayout{
+        id: stack
         anchors.fill: parent
-        Label{
-            Layout.fillWidth: true
-            text:"User test results"
-            font.pointSize: fontSize * 2
-            horizontalAlignment: Text.AlignHCenter
+        ResultsSummary{
+            id: summaryPage
         }
 
-        Flickable{
-            Layout.margins: 20
-            contentHeight: rawDataLabel.height + 200
-            contentWidth: rawDataLabel.width
-
-            Layout.fillHeight: true
-            Layout.fillWidth: true
-            clip: true
-            Text{
-                id: rawDataLabel
-                Layout.fillWidth: true
-            }
+        ResultsRaw{
+            id: rawPage
         }
     }
 }

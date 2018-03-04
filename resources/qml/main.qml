@@ -169,13 +169,13 @@ ApplicationWindow {
             MainMenu{
                 id:mainPage
                 onNewTest: {
-                    console.log("new test");
+                    //console.log("new test");
                     stack.push(newUserForm);
                     stack.currentItem.reset();
                 }
 
                 onViewResult: {
-                    console.log("view result");
+                    //console.log("view result");
                     stack.push(resultsPageComp);
                     stack.currentItem.setResults(userSettings.userData);
                 }

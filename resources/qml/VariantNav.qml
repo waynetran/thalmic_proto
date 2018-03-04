@@ -67,14 +67,14 @@ Item {
 
 
     function start(){
-        console.log("Navigation start.");
+        //console.log("Navigation start.");
         ballX = 0.0;
         ballY = 0.0;
         startTimer.start();
     }
 
     function stop(){
-        console.log("Navigation stop.");
+        //console.log("Navigation stop.");
         tiltTimer.stop();
     }
 
@@ -96,7 +96,7 @@ Item {
 
     //Private, do not use outside this item
     function select(text,nav){
-        console.log("VariantNav select - " + text);
+        //console.log("VariantNav select - " + text);
         stop();
         pickedText = text;
         picked(text);
@@ -104,7 +104,7 @@ Item {
             stack.push(nav);
             nav.start();
         }else{
-            console.log("VariantNav - emitting finished: " + text);
+            //console.log("VariantNav - emitting finished: " + text);
             finished(text);
             reset();
         }
@@ -113,7 +113,7 @@ Item {
     Connections{
         target: opt1Nav
         onFinished:{
-            console.log("finished: " + opt);
+            //console.log("finished: " + opt);
             //recursively send back finished with the results separated by "/"
             finished(pickedText + "/" + opt);
         }
@@ -125,7 +125,7 @@ Item {
     Connections{
         target: opt2Nav
         onFinished:{
-            console.log("finished: " + opt);
+            //console.log("finished: " + opt);
             finished(pickedText + "/" + opt);
         }
         onPicked:{
@@ -136,7 +136,7 @@ Item {
     Connections{
         target: opt3Nav
         onFinished:{
-            console.log("finished: " + opt);
+            //console.log("finished: " + opt);
             finished(pickedText + "/" + opt);
         }
         onPicked:{
@@ -147,7 +147,7 @@ Item {
     Connections{
         target: opt4Nav
         onFinished:{
-            console.log("finished: " + opt);
+            //console.log("finished: " + opt);
             finished(pickedText + "/" + opt);
         }
         onPicked:{

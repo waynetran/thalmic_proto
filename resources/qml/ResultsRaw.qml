@@ -13,7 +13,7 @@ Item {
         var text = ""
         for(var i=0;i<userData.length;i++){
             var user = userData[i];
-            console.log("result: " + JSON.stringify(user));
+            //console.log("result: " + JSON.stringify(user));
             text += "\n " + JSON.stringify(user);
         }
 

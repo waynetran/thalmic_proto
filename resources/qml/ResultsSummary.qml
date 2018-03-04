@@ -29,6 +29,7 @@ Item {
         computeTotalMistakes(userData);
         computeAverageTimes(userData);
         computePerUser(userData);
+        moreIndicator.visible = stack.currentIndex == 1;
     }
 
     function computeEaseOfUse(userData){
@@ -49,8 +50,8 @@ Item {
         fourWayEase = newFourWayEase;
         twoWayEase = newTwoWayEase;
 
-        console.log("result fourway: " + JSON.stringify(fourWayEase));
-        console.log("result twoway: " + JSON.stringify(twoWayEase));
+        //console.log("result fourway: " + JSON.stringify(fourWayEase));
+        //console.log("result twoway: " + JSON.stringify(twoWayEase));
     }
 
     function computeTotalMistakes(userData){
@@ -77,7 +78,7 @@ Item {
         mistakesSeries.axisY.min = 0;
         mistakesSeries.axisY.max = Math.max(Math.max(mistakesData[0], mistakesData[1]),10);
 
-        console.log("result mistakes data: " + JSON.stringify(mistakesData));
+        //console.log("result mistakes data: " + JSON.stringify(mistakesData));
     }
 
     function computeAverageTimes(userData){
@@ -206,6 +207,7 @@ Item {
             }
 
             Flickable{
+                id: flickable
                 //Layout.margins: 20
                 contentHeight: row1.height + 200
                 contentWidth: parent.width
@@ -213,6 +215,11 @@ Item {
                 Layout.fillHeight: true
                 Layout.fillWidth: true
                 clip: true
+                onFlickStarted: {
+                    moreIndicator.visible = false;
+                }
+
+                ScrollIndicator.vertical: ScrollIndicator { }
                 ColumnLayout {
                     id: row1
                     width: itemRoot.width
@@ -388,6 +395,26 @@ Item {
                     }
                 }
             }
+        }
+    }
+
+    Rectangle{
+        id:moreIndicator
+        visible: true
+        color: "steelblue"
+        anchors.bottom: parent.bottom
+        anchors.margins: 10
+        anchors.horizontalCenter: parent.horizontalCenter
+        radius: 40
+        height: controlHeight *.6
+        width: controlWidth * .6
+        Button {
+            anchors.fill: parent
+            anchors.centerIn: parent
+            font.pointSize: fontSize
+            text: "<font color=\"white\">More...</font>"
+            flat: true
+            onClicked: flickable.flick(0,-5000);
         }
     }
 }

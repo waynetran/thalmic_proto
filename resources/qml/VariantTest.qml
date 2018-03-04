@@ -31,7 +31,7 @@ Item {
     signal finished()
 
     function start() {
-        console.log("Starting Variant Test");
+        //console.log("Starting Variant Test");
         nextTest();
     }
 
@@ -39,7 +39,7 @@ Item {
         resetTest();
         currentTrial=0;
         //For Debugging:
-        //currentTrial=3;
+        //currentTrial=2;
         easeOfUse=-1
         results = [];
         resultsDialog.visible = false;
@@ -85,15 +85,15 @@ Item {
         currentTargetItem = getCurrentItem(currentTargetIndex);
         currentPicked = "";
         startTime = new Date().getTime();
-        console.log("Start time: " + startTime);
+        //console.log("Start time: " + startTime);
         navigation.reset();
         navigation.start();
     }
 
     function newResult(result){
-        console.log("new test result: " + result);
+        //console.log("new test result: " + result);
         elapsedTimeMS = new Date().getTime() - startTime;
-        console.log("End time: " + new Date().getTime());
+        //console.log("End time: " + new Date().getTime());
 
         if(result === currentTarget){
             resultsDialog.text = "Success!";
@@ -131,8 +131,8 @@ Item {
 
         currentTargetIndex++;
         var cur = getCurrentItem(currentTargetIndex);
-        console.log(" target: " +  currentTarget + " index: "+currentTargetIndex);
-        console.log("onPicked: " + opt + " next target: " + cur);
+        //console.log(" target: " +  currentTarget + " index: "+currentTargetIndex);
+        //console.log("onPicked: " + opt + " next target: " + cur);
         if(cur)
             currentTargetItem = cur;
     }
@@ -167,8 +167,8 @@ Item {
 
             currentTargetIndex++;
             var cur = getCurrentItem(currentTargetIndex);
-            console.log(" target: " +  currentTarget + " index: "+currentTargetIndex);
-            console.log("onPicked: " + opt + " next target: " + cur);
+            //console.log(" target: " +  currentTarget + " index: "+currentTargetIndex);
+            //console.log("onPicked: " + opt + " next target: " + cur);
             if(cur)
                 currentTargetItem = cur;
         }

@@ -10,7 +10,7 @@ This prototype has been tested on an android 7.0 phone. For best results, the ph
 ### Main Menu and New Participant screen.
 From the main menu, press "New Participant" and have the user enter in their details.
 
-![main menu](screenshots/mainmenu.jpg) ![main menu](screenshots/newuser.jpg)
+![main menu](screenshots/mainmenu.jpg) ![new user](screenshots/newuser.jpg)
 
 
 ### Ready Screen
@@ -22,24 +22,24 @@ Pressing "Next" takes the user to the Ready screen. Have the device securely str
 ### Two Way Navigation
 Here's an example of a Two Way navigation test in progress. The target menu item is presented in blue here as "Pulse". The previous chosen menu items are shown below as "Info/Calendar/Change".
 
-![main menu](screenshots/twowaytilt.jpg)
+![two way](screenshots/twowaytilt.jpg)
 
 
 ### Result of a test
 After every test, the user will be presented with a "Success!" or "Miss!" dialog. Pressing "Next" will proceed to the next test.
 
-![main menu](screenshots/results.jpg)
+![results](screenshots/results.jpg)
 
 
 ### Finishing a Test Variant
 After 3 trials of 8 tests are finished for a test variant, the user will choose the ease of use of the navigation of the variant on a scale of 1 - 7, 1 being "Extremely Difficult" and 7 is "Effortless". Pressing "Next" will proceed to the next test variant or back to the Main Menu and concludes the test.
 
-![main menu](screenshots/likert.jpg)
-
+![likert](screenshots/likert.jpg)
 
 ### View Results
-Results for all users can be viewed from the Main Menu's "View Result" option. Scrolling down the summary page will show various charts comparing mistakes and success times for test variants and users. There is also a Raw user data page in JSON format.
-![main menu](screenshots/reports1.jpg)    ![main menu](screenshots/reports2.jpg)
+Results for all users can be viewed from the Main Menu's "View Result" option. Scrolling down the summary page will show various charts comparing mistakes and success times for test variants and users.
+
+![report1](screenshots/results1.jpg) ![report1](screenshots/results1.jpg)
 
 ## Troubleshooting
 If the menus seem to choose themselves without the user moving the phone, the user can use the global menu (3 dots upper right) to Quit to Main and start again.  This is due to a miss calibration during the Test Ready screen before the user presses start. The device's tilt measurements will be "Zeroed Out" when the user presses start at this screen so it's important the user returns the device to the approximate orientation after each selection.

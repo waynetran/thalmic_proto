@@ -38,7 +38,7 @@ Item {
 
     //factor to move the ball each timestep, ie. ballX += xRotation*accel
     property real accel: 0.1
-    property real maxStep: 5
+    property real maxStep: 4
 
     //tracks the "cursor". 0,0 is the neutral location to start.
     property real ballX:0.0
@@ -96,11 +96,15 @@ Item {
 
     //Private, do not use outside this item
     function select(text,nav){
+        console.log("VariantNav select - " + text);
+        stop();
+        pickedText = text;
         picked(text);
         if(nav){
             stack.push(nav);
             nav.start();
         }else{
+            console.log("VariantNav - emitting finished: " + text);
             finished(text);
             reset();
         }
@@ -110,7 +114,11 @@ Item {
         target: opt1Nav
         onFinished:{
             console.log("finished: " + opt);
+            //recursively send back finished with the results separated by "/"
             finished(pickedText + "/" + opt);
+        }
+        onPicked:{
+            picked(opt);
         }
     }
 
@@ -120,6 +128,9 @@ Item {
             console.log("finished: " + opt);
             finished(pickedText + "/" + opt);
         }
+        onPicked:{
+            picked(opt);
+        }
     }
 
     Connections{
@@ -127,6 +138,9 @@ Item {
         onFinished:{
             console.log("finished: " + opt);
             finished(pickedText + "/" + opt);
+        }
+        onPicked:{
+            picked(opt);
         }
     }
 
@@ -136,10 +150,12 @@ Item {
             console.log("finished: " + opt);
             finished(pickedText + "/" + opt);
         }
+        onPicked:{
+            picked(opt);
+        }
     }
 
     onPicked: {
-        pickedText = opt
         stop();
     }
 
@@ -155,7 +171,7 @@ Item {
 
     Timer {
         id: tiltTimer
-        interval: 100; running: false; repeat: true
+        interval: 50; running: false; repeat: true
 
         onTriggered: {
             if (!tiltSensor.enabled)
@@ -170,7 +186,7 @@ Item {
                 ballX = 0;
             }
 
-            console.log("Tilt X: " + xReading + " ballX: " + ballX);
+            //console.log("Tilt X: " + xReading + " ballX: " + ballX);
 
             if(ballX > xThreshold){
                 stack.currentItem.clickDown();
@@ -187,7 +203,7 @@ Item {
                     ballY = 0;
                 }
 
-                console.log("Tilt Y:" + yReading + " ballY: "+ ballY);
+                //console.log("Tilt Y:" + yReading + " ballY: "+ ballY);
 
                 if(ballY > yThreshold){
                     stack.currentItem.clickRight();

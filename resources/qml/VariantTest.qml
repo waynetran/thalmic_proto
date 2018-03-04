@@ -7,14 +7,18 @@ import QtQml 2.2
 import "qrc:/js/utils.js" as Utils
 
 Item {
-    id: fourWayTest
+    id: variantTestItem
     property var targets : []
     property int numTrials: 3
     property int numTest: 8
     property var testsTodo : []
     property int currentTest: 0;
     property int currentTrial: 0;
+    // Item/Item/ etc
     property string currentTarget: ""
+    //The current target Item
+    property string currentTargetItem: ""
+    property int currentTargetIndex: 0;
     property var results : []
     //The likert value is from 1 - 7
     property int easeOfUse : -1
@@ -22,6 +26,7 @@ Item {
     property var elapsedTimeMS: 0
     property Item navigation: null
     property alias title: titleLabel.text
+    property alias currentPicked: currentLabel.text
 
     signal finished()
 
@@ -32,8 +37,9 @@ Item {
 
     function reset() {
         resetTest();
-        //currentTrial=0;
-        currentTrial=3;
+        currentTrial=0;
+        //For Debugging:
+        //currentTrial=3;
         easeOfUse=-1
         results = [];
         resultsDialog.visible = false;
@@ -48,7 +54,9 @@ Item {
     function resetTest(){
         shuffle();
         currentTest=0;
-        //currentTest=6;
+        currentPicked = "";
+        currentTargetItem = "";
+        currentPicked = "";
         currentTarget = testsTodo.pop();
         elapsedTimeMS = 0;
         startTime = 0;
@@ -70,8 +78,12 @@ Item {
             nextTrial();
             return;
         }
+        navigation.stop();
         currentTest++;
         currentTarget = testsTodo.pop();
+        currentTargetIndex = 0;
+        currentTargetItem = getCurrentItem(currentTargetIndex);
+        currentPicked = "";
         startTime = new Date().getTime();
         console.log("Start time: " + startTime);
         navigation.reset();
@@ -106,16 +118,61 @@ Item {
         results.push(data);
     }
 
+    function appendPicked(opt){
+        if(currentPicked)
+            currentPicked += "/"+opt;
+        else
+            currentPicked = opt;
+
+        if(opt !== currentTargetItem){
+            newResult(currentPicked);
+            return;
+        }
+
+        currentTargetIndex++;
+        var cur = getCurrentItem(currentTargetIndex);
+        console.log(" target: " +  currentTarget + " index: "+currentTargetIndex);
+        console.log("onPicked: " + opt + " next target: " + cur);
+        if(cur)
+            currentTargetItem = cur;
+    }
+
     Component.onCompleted: {
         reset();
+    }
+
+    function getCurrentItem(index){
+       var split = currentTarget.split("/");
+       return split[index];
     }
 
     Connections{
         target: navigation
 
         onFinished: {
-            newResult(opt);
+            newResult(currentPicked);
         }
+
+
+        onPicked: {
+            if(currentPicked)
+                currentPicked += "/"+opt;
+            else
+                currentPicked = opt;
+
+           /* if(opt != currentTargetItem){
+                newResult(currentPicked);
+                return;
+            }*/
+
+            currentTargetIndex++;
+            var cur = getCurrentItem(currentTargetIndex);
+            console.log(" target: " +  currentTarget + " index: "+currentTargetIndex);
+            console.log("onPicked: " + opt + " next target: " + cur);
+            if(cur)
+                currentTargetItem = cur;
+        }
+
     }
 
     ColumnLayout{
@@ -161,13 +218,31 @@ Item {
                     horizontalAlignment: Text.AlignHCenter
                 }
                 Label{
-                    text: currentTarget
+                    id: target
+                    text: currentTargetItem
                     Layout.fillWidth: true
-                    font.pointSize: fontSize * 1.5
+                    font.pointSize: fontSize * 2
                     font.bold: true
                     color: "steelblue"
                     Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
                     horizontalAlignment: Text.AlignHCenter
+                }
+                Label{
+                    text: "Picked:"
+                    Layout.fillWidth: true
+                    font.pointSize: fontSize * 1.2
+                    color: fontColor
+                    wrapMode: Text.WordWrap
+                    horizontalAlignment: Text.AlignLeft
+                }
+                Label{
+                    id: currentLabel
+                    Layout.fillWidth: true
+                    font.pointSize: fontSize * 1
+                    font.bold: true
+                    color: fontColor
+                    Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
+                    horizontalAlignment: Text.AlignLeft
                 }
             }
         }
@@ -186,8 +261,8 @@ Item {
         anchors.centerIn: parent
         Dialog {
             id: resultsDialog
-            width: fourWayTest.width * .8
-            height: 400
+            width: variantTestItem.width * .8
+            height: variantTestItem.height *.8
 
             visible: false
             property alias text: resultsLabel.text
@@ -221,6 +296,40 @@ Item {
                     Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
                     wrapMode: Text.WordWrap
                 }
+                Label{
+                    text: "Target:"
+                    Layout.fillWidth: true
+                    font.pointSize: fontSize * 1.2
+                    color: fontColor
+                    wrapMode: Text.WordWrap
+                    horizontalAlignment: Text.AlignLeft
+                }
+                Label{
+                    text: currentTarget
+                    Layout.fillWidth: true
+                    font.pointSize: fontSize
+                    font.bold: true
+                    color: "steelblue"
+                    Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
+                    horizontalAlignment: Text.AlignLeft
+                }
+                Label{
+                    text: "Picked:"
+                    Layout.fillWidth: true
+                    font.pointSize: fontSize
+                    color: fontColor
+                    wrapMode: Text.WordWrap
+                    horizontalAlignment: Text.AlignLeft
+                }
+                Label{
+                    text: currentPicked
+                    Layout.fillWidth: true
+                    font.pointSize: fontSize
+                    font.bold: true
+                    color: fontColor
+                    Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
+                    horizontalAlignment: Text.AlignLeft
+                }
 
                 Rectangle{
                     Layout.fillHeight: true
@@ -247,8 +356,8 @@ Item {
         anchors.centerIn: parent
         Dialog {
             id: surveyDialog
-            width: fourWayTest.width * .9
-            height: fourWayTest.height * .9
+            width: variantTestItem.width * .9
+            height: variantTestItem.height * .9
             visible: false
 
             ColumnLayout{

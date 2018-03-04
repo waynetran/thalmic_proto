@@ -39,7 +39,7 @@ After 3 trials of 8 tests are finished for a test variant, the user will choose 
 ### View Results
 Results for all users can be viewed from the Main Menu's "View Result" option. Scrolling down the summary page will show various charts comparing mistakes and success times for test variants and users.
 
-![report1](screenshots/results1.jpg) ![report1](screenshots/results1.jpg)
+![report1](screenshots/reports1.jpg) ![report2](screenshots/reports2.jpg)
 
 ## Troubleshooting
 If the menus seem to choose themselves without the user moving the phone, the user can use the global menu (3 dots upper right) to Quit to Main and start again.  This is due to a miss calibration during the Test Ready screen before the user presses start. The device's tilt measurements will be "Zeroed Out" when the user presses start at this screen so it's important the user returns the device to the approximate orientation after each selection.

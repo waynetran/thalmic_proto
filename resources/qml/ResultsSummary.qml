@@ -59,14 +59,14 @@ Item {
         for(var row=0;row<userData.length;row++){
             var user = userData[row];
             var fourResults = user["fourway_results"];
-            for(var i=0; i < fourResults.length; i++){
+            for(var i=0; fourResults && i < fourResults.length; i++){
                 var result = fourResults[i];
                 var val = result["is_success"] ? 0 : 1;
                 newMistakes[0] += val;
             }
 
             var twoResults = user["twoway_results"];
-            for(var j=0; j < twoResults.length; j++){
+            for(var j=0; twoResults && j < twoResults.length; j++){
                 var result = twoResults[j];
                 var val = result["is_success"] ? 0 : 1;
                 newMistakes[1] += val;
@@ -90,7 +90,7 @@ Item {
         for(var row=0;row<userData.length;row++){
             var user = userData[row];
             var fourResults = user["fourway_results"];
-            for(var i=0; i < fourResults.length; i++){
+            for(var i=0; fourResults && i < fourResults.length; i++){
                 var result = fourResults[i];
                 if(result["is_success"]){
                     fourWayTimes += result["time_ms"];
@@ -99,7 +99,7 @@ Item {
             }
 
             var twoResults = user["twoway_results"];
-            for(var j=0; j < twoResults.length; j++){
+            for(var j=0; twoResults && j < twoResults.length; j++){
                 var result = twoResults[j];
                 if(result["is_success"]){
                     twoWayTimes += result["time_ms"];
@@ -128,7 +128,7 @@ Item {
             var numFourMistakes = 0;
             var timesTotal = 0;
             var numTimes = 0;
-            for(var i=0; i < fourResults.length; i++){
+            for(var i=0; fourResults && i < fourResults.length; i++){
                 var result = fourResults[i];
                 if(!result["is_success"]){
                     numFourMistakes++;
@@ -152,7 +152,7 @@ Item {
             var numTwoMistakes = 0;
             timesTotal = 0;
             numTimes = 0;
-            for(var j=0; j < twoResults.length; j++){
+            for(var j=0; twoResults && j < twoResults.length; j++){
                 var result = twoResults[j];
                 if(!result["is_success"]){
                     numTwoMistakes++;

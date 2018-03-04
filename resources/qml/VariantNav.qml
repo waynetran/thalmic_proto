@@ -174,7 +174,7 @@ Item {
         interval: 50; running: false; repeat: true
 
         onTriggered: {
-            if (!tiltSensor.enabled)
+            if (!tiltSensor.active)
                 tiltSensor.active = true;
 
             var xReading = tiltSensor.reading.xRotation;
@@ -189,9 +189,9 @@ Item {
             //console.log("Tilt X: " + xReading + " ballX: " + ballX);
 
             if(ballX > xThreshold){
-                stack.currentItem.clickDown();
+                selectDown();
             }else if(ballX < -xThreshold){
-                stack.currentItem.clickUp();
+                selectUp();
             }
 
             if(isFourWay){
@@ -206,9 +206,9 @@ Item {
                 //console.log("Tilt Y:" + yReading + " ballY: "+ ballY);
 
                 if(ballY > yThreshold){
-                    stack.currentItem.clickRight();
+                    selectRight();
                 }else if(ballY < -yThreshold){
-                    stack.currentItem.clickLeft();
+                    selectLeft();
                 }
             }
         }
@@ -233,7 +233,9 @@ Item {
                 text:opt1
                 font.pointSize: fontSize
                 onClicked:{
-                    selectUp();
+                    //Prevent clicking on mobile
+                    if(!tiltSensor.active)
+                        selectUp();
                 }
                 Layout.preferredWidth: isFourWay?stack.width/2.0 : stack.width
                 Layout.preferredHeight: isFourWay? controlHeight : controlHeight * 2
@@ -247,7 +249,9 @@ Item {
                     text:opt2
                     font.pointSize: fontSize
                     onClicked:{
-                        selectLeft();
+                        //Prevent clicking on mobile
+                        if(!tiltSensor.active)
+                            selectLeft();
                     }
                     Layout.preferredWidth: stack.width/2.5
                     Layout.preferredHeight: controlHeight
@@ -266,7 +270,9 @@ Item {
                     text:opt3
                     font.pointSize: fontSize
                     onClicked:{
-                        selectRight();
+                        //Prevent clicking on mobile
+                        if(!tiltSensor.active)
+                            selectRight();
                     }
                     Layout.preferredWidth: stack.width/2.5
                     Layout.preferredHeight: controlHeight
@@ -278,7 +284,9 @@ Item {
                 text:opt4
                 font.pointSize: fontSize
                 onClicked:{
-                    selectDown();
+                    //Prevent clicking on mobile
+                    if(!tiltSensor.active)
+                        selectDown();
                 }
                 Layout.preferredWidth: isFourWay?stack.width/2.0 : stack.width
                 Layout.preferredHeight: isFourWay? controlHeight : controlHeight * 2

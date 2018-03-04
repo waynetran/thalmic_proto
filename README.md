@@ -14,7 +14,7 @@ From the main menu, press "New Participant" and have the user enter in their det
 
 
 ### Ready Screen
-Pressing "Next" takes the user to the Ready screen. Have the device securely strapped to the wrist like they're looking at a watch. Pressing "Start" will proceed to the first test variant (either Two Way or Four Way every other user).
+Pressing "Next" takes the user to the Ready screen. Have the device securely strapped to the wrist like they're looking at a watch and as flat as possible. Pressing "Start" will proceed to the first test variant (either Two Way or Four Way every other user). This is the reference orientation for the Tilt sensors so it is important for the user to return to this orientation after each selection.
 
 ![main menu](screenshots/prenavigation.jpg)
 
@@ -38,9 +38,11 @@ After 3 trials of 8 tests are finished for a test variant, the user will choose 
 
 
 ### View Results
-Results for all users can be viewed from the Main Menu's "View Result" option.
+Results for all users can be viewed from the Main Menu's "View Result" option. Scrolling down the summary page will show various charts comparing mistakes and success times for test variants and users. There is also a Raw user data page in JSON format.
 ![main menu](screenshots/reports1.jpg)    ![main menu](screenshots/reports2.jpg)
 
+## Troubleshooting
+If the menus seem to choose themselves without the user moving the phone, the user can use the global menu (3 dots upper right) to Quit to Main and start again.  This is due to a miss calibration during the Test Ready screen before the user presses start. The device's tilt measurements will be "Zeroed Out" when the user presses start at this screen so it's important the user returns the device to the approximate orientation after each selection.
 
 ## Build Instructions
 

@@ -37,7 +37,7 @@ Item {
 
     function reset() {
         resetTest();
-        currentTrial=0;
+        currentTrial=1;
         //For Debugging:
         //currentTrial=2;
         easeOfUse=-1
@@ -58,24 +58,23 @@ Item {
         currentPicked = "";
         currentTargetItem = "";
         currentPicked = "";
-        currentTarget = testsTodo.pop();
+        currentTarget = "";
         elapsedTimeMS = 0;
         startTime = 0;
     }
 
     function nextTrial(){
-        currentTrial++;
         if(currentTrial >= numTrials){
             surveyDialog.visible = true;
             return;
         }
-
+        currentTrial++;
         resetTest();
         nextTest();
     }
 
     function nextTest(){
-        if(testsTodo.length === 0 || currentTest >= numTest){
+        if(testsTodo.length === 0 || currentTest > numTest){
             nextTrial();
             return;
         }

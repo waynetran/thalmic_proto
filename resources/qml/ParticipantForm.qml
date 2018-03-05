@@ -111,8 +111,9 @@ Item {
 
         Row {
             spacing: 16
-            anchors.horizontalCenter: parent.horizontalCenter
-            Layout.preferredHeight: 100
+            //anchors.horizontalCenter: parent.horizontalCenter
+            Layout.alignment: Qt.AlignHCenter | Qt.AlignTop
+            Layout.preferredHeight: controlHeight
             Button {
                 text: "Cancel"
                 font.pointSize: fontSize

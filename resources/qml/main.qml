@@ -6,6 +6,7 @@ import QtQuick.Layouts 1.3
 import QtQml 2.2
 import Qt.labs.settings 1.0
 import QtSensors 5.0
+import QtGraphicalEffects 1.0
 
 ApplicationWindow {
     id: appWindow
@@ -14,9 +15,12 @@ ApplicationWindow {
     width: 480
 
     property string fontColor : "#566573"
-    property int fontSize : 14
-    property int controlHeight: 80
-    property int controlWidth: 220
+    //Some funky trial and error heuristics to get the property sizes based on pixelDensity.
+    //There's probably a library for this.
+    property real screenFactor : Math.max(Screen.pixelDensity *.1,1.0)
+    property int fontSize : 14 * Math.max(screenFactor * .5, 1.0)
+    property int controlHeight: 80 * screenFactor
+    property int controlWidth: 200 * screenFactor
     property var currentUser :({})
 
     function quitToMain(){
@@ -28,6 +32,7 @@ ApplicationWindow {
         console.log("Pixel ratio " + Screen.devicePixelRatio);
         console.log("Pixel density " + Screen.pixelDensity);
         console.log("Resolution: " + Screen.width + "x" + Screen.height);
+        console.log("Screen Item Factor: " + screenFactor);
     }
 
     Settings {
@@ -74,8 +79,6 @@ ApplicationWindow {
                 source: "qrc:/images/thalmic_logo_mark.svg"
                 Layout.maximumHeight: parent.height * .8
                 Layout.maximumWidth: Layout.maximumHeight
-                //sourceSize.width : Layout.maximumHeight
-                //sourceSize.height : Layout.maximumHeight
                 Layout.leftMargin: 10
                 Layout.alignment: Qt.AlignLeft
                 fillMode: Image.PreserveAspectFit
@@ -90,22 +93,34 @@ ApplicationWindow {
                 font.pointSize: 20
             }
 
-            ToolButton {
-                onClicked: {
-                    //mainMenu.open();
-                    drawer.open();
+            Image {
+                id: menuImage
+                ColorOverlay {
+                    anchors.fill: menuImage
+                    source: menuImage
+                    color: "#FFFFFF"
+                }
+                MouseArea{
+                    anchors.fill: parent
+                    onClicked: {
+                        mainMenu.open();
+                    }
                 }
                 Layout.fillHeight: true
-                icon.source : "qrc:/images/menu.svg"
-                Layout.maximumHeight: parent.height
+                source : "qrc:/images/menu.svg"
+                Layout.maximumHeight: parent.height * .5
                 Layout.maximumWidth: Layout.maximumHeight
+                fillMode: Image.PreserveAspectFit
                 Menu{
                     id:mainMenu
-                    width: Math.max(Math.min(parent.width,300),200)
-                    y:toolBar.height
+                    width: controlWidth
+                    height: controlHeight * 2
+                    y: toolBar.y + toolBar.height
                     MenuItem{
                         id:mainMenuItem
                         text: "Quit to Main"
+                        font.pointSize: fontSize
+                        height: controlHeight
                         onTriggered: {
                             quitToMain();
                         }
@@ -113,6 +128,8 @@ ApplicationWindow {
                     MenuItem{
                         id:exitItem
                         text: "Exit App"
+                        font.pointSize: fontSize
+                        height: controlHeight
                         onTriggered: {Qt.quit();}
                     }
                 }
@@ -124,9 +141,7 @@ ApplicationWindow {
         id: drawer
         width: 0.66 * appWindow.width
         height: appWindow.height
-        //y: toolBar.height
         edge: Qt.RightEdge
-        //Material.theme: "Dark"
         ColumnLayout {
             anchors.fill: parent
             spacing: 0

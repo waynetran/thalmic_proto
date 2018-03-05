@@ -53,7 +53,8 @@ Item {
 
     function resetTest(){
         shuffle();
-        currentTest=0;
+        currentTest = 0;
+        //currentTest=6;
         currentPicked = "";
         currentTargetItem = "";
         currentPicked = "";
@@ -358,7 +359,7 @@ Item {
             id: surveyDialog
             width: variantTestItem.width * .9
             height: variantTestItem.height * .9
-            visible: false
+            visible: true
 
             ColumnLayout{
                 anchors.fill: parent
@@ -366,7 +367,7 @@ Item {
                 Label{
                     id: infoLabel
                     text: "Please rate the overall ease of use with this navigation system."
-                    font.pointSize: fontSize * 2
+                    font.pointSize: fontSize * 1.5
                     Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
                     Layout.fillWidth: true
                     wrapMode: Text.WordWrap
@@ -380,37 +381,58 @@ Item {
                         text: qsTr("(1) Extremely difficult")
                         font.pointSize: fontSize
                         onClicked: {easeOfUse=1;}
+                        indicator.height: controlHeight * .3
+                        indicator.width: indicator.height
+                        Layout.fillWidth: true
                     }
                     RadioButton {
                         text: qsTr("(2)")
                         font.pointSize: fontSize
                         onClicked: {easeOfUse=2;}
+                        indicator.height: controlHeight * .3
+                        indicator.width: indicator.height
+                        Layout.fillWidth: true
                     }
                     RadioButton {
                         text: qsTr("(3)")
                         font.pointSize: fontSize
                         onClicked: {easeOfUse=3;}
+                        indicator.height: controlHeight * .3
+                        indicator.width: indicator.height
+                        Layout.fillWidth: true
                     }
                     RadioButton {
                         checked: true
                         text: qsTr("(4) Not difficult but not easy")
                         font.pointSize: fontSize
                         onClicked: {easeOfUse=4;}
+                        indicator.height: controlHeight * .3
+                        indicator.width: indicator.height
+                        Layout.fillWidth: true
                     }
                     RadioButton {
                         text: qsTr("(5)")
                         font.pointSize: fontSize
                         onClicked: {easeOfUse=5;}
+                        indicator.height: controlHeight * .3
+                        indicator.width: indicator.height
+                        Layout.fillWidth: true
                     }
                     RadioButton {
                         text: qsTr("(6)")
                         font.pointSize: fontSize
                         onClicked: {easeOfUse=6}
+                        indicator.height: controlHeight * .3
+                        indicator.width: indicator.height
+                        Layout.fillWidth: true
                     }
                     RadioButton {
                         text: qsTr("(7) Effortless")
                         font.pointSize: fontSize
                         onClicked: {easeOfUse=7;}
+                        indicator.height: controlHeight * .3
+                        indicator.width: indicator.height
+                        Layout.fillWidth: true
                     }
 
                 }
